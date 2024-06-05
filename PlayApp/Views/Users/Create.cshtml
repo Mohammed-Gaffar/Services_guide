@@ -1,0 +1,49 @@
+﻿@model Core.Entities.User
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div style="justify-content:center;display:flex">
+    <div style="width:80%;margin:5%">
+        <div class="card">
+            <div class="card-header">
+                إضافة مستخدم
+            </div>
+                @using (Html.BeginForm("Create", "Users", FormMethod.Post))
+                {
+                    <div class="card-body">
+             
+                    @Html.LabelFor(m => m.name,null,new{@class="label-control"})
+                    @Html.TextBoxFor(m => m.name, null, new { @class = "form-control", autocomplete = "off" })
+                    <br />
+                     @Html.LabelFor(m => m.UserName,null,new{@class="label-control"})
+                    @Html.TextBoxFor(m => m.UserName, null, new { @class = "form-control", autocomplete = "off" })
+                    <br />
+                     @Html.LabelFor(m => m.email,null,new{@class="label-control"})
+                    @Html.TextBoxFor(m => m.email, null, new { @class = "form-control", autocomplete = "off",Type="Email" })
+                    <br />
+                    @Html.LabelFor(m => m.password, null, new { @class = "label-control" })
+                    @Html.TextBoxFor(m => m.password, null, new { @class = "form-control", autocomplete = "off", type = "password" })
+                    <br />
+                    @Html.LabelFor(m => m.Role, null, new { @class = "label-control" })
+                    @Html.TextBoxFor(m => m.Role, null, new { @class = "form-control", autocomplete = "off" })
+                    <br />
+              
+                    </div>
+
+                    <div class="card-footer">
+                        <input type="submit" value="حفظ البيانات" class="btn btn-primary" />
+                    </div>
+                }
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    <partial name="_NotificationPartial" />
+}
