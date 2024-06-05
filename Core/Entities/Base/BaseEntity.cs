@@ -13,9 +13,9 @@ namespace Core.Entities.Base
     {
         [Key]
         public int ID { get; set; }
-        
-        public DateTime? Create_At { get; set; } 
-        
+        public DateTime? Create_At { get; set; }
+        public int Created_by { get; set; }
         public DateTime? Update_At { get; set; }
+        public int? Updated_by { get; set; }
     }
 }

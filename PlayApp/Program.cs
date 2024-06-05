@@ -6,6 +6,9 @@ using Synercoding.FormsAuthentication;
 using Infrastructure.Context;
 using Core.Interfaces;
 using Infrastructure.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using Core.Entities;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,6 +70,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUser,UserRepository>();
 
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -76,6 +82,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -87,5 +94,19 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var userRepository = scope.ServiceProvider.GetRequiredService<IUser>();
+
+
+    var user = new User
+    { UserName = "mgahmed", Role = (Core.Enums.Roles)1, Create_At = DateTime.Now, Created_by = 1 };
+
+    await userRepository.Create(user);
+
+}
+
 
 app.Run();

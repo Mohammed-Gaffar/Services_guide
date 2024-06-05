@@ -17,13 +17,12 @@ namespace Infrastructure.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     Create_At = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Update_At = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Created_by = table.Column<int>(type: "int", nullable: false),
+                    Update_At = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Updated_by = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

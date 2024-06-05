@@ -13,10 +13,10 @@
             <div class="card-header">
                 إضافة مستخدم
             </div>
-                @using (Html.BeginForm("Create", "Users", FormMethod.Post))
-                {
-                    <div class="card-body">
-                     @Html.LabelFor(m => m.UserName,null,new{@class="label-control"})
+            @using (Html.BeginForm("Edit", "Users", FormMethod.Post))
+            {
+                <div class="card-body">
+                    @Html.LabelFor(m => m.UserName, null, new { @class = "label-control" })
                     @Html.TextBoxFor(m => m.UserName, null, new { @class = "form-control", autocomplete = "off", onkeypress = "return /[0-9a-zA-Z-ا-ي- -]/i.test(event.key)" })
                     <span asp-validation-for="UserName" class="text-danger"></span>
 
@@ -26,19 +26,12 @@
                     <span asp-validation-for="Role" class="text-danger"></span>
                 </div>
 
-                    <div class="card-footer">
-                        <input type="submit" value="حفظ البيانات" class="btn btn-primary" />
-                    </div>
-                }
+                <div class="card-footer">
+                    <input type="submit" value="حفظ البيانات" class="btn btn-primary" />
+                </div>
+            }
         </div>
     </div>
 </div>
 
 
-
-
-@section scripts{
-    <partial name="_NotificationPartial" />
-    <partial name="_ValidationScriptsPartial" />
-
-}

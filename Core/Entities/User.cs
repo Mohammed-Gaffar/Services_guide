@@ -1,7 +1,9 @@
 ﻿using Core.Entities.Base;
+using Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -11,15 +13,11 @@ namespace Core.Entities
 {
     public class User : BaseEntity
     {
-        [DisplayName("اسم المستخدم")]
-        public string name { get; set; }
+        [Required]
         [DisplayName("اسم الستخدم")]
         public string UserName { get; set; }
-        [DisplayName("البريد الإلكتروني")]
-        public string email { get; set; }
-        [DisplayName("كلمة المرور")]
-        public string password { get; set; }
         [DisplayName("صلاحية المستخدم")]
-        public string Role { get; set; }
+        [Required]
+        public Roles Role { get; set; }
     }
 }

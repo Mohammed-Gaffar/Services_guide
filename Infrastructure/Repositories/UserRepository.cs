@@ -45,14 +45,32 @@ namespace Infrastructure.Repositories
             return _db.users.ToList(); 
         }
 
-        public Task<BaseResponse> GetById(int id)
+        public async Task<User> GetById(int id)
         {
-            throw new NotImplementedException();
+            User user = await _db.users.FindAsync(id);
+            if ( user != null )
+                return user;
+
+            return null; 
+
+            
+
         }
 
-        public Task<BaseResponse> Update(User User)
+        public async Task<BaseResponse> Update(User User)
         {
-            throw new NotImplementedException();
+            var DbUser = await  _db.users.FindAsync(User.ID);
+            if (DbUser != null)
+            {
+                _db.Entry(DbUser).CurrentValues.SetValues(User);
+                await _db.SaveChangesAsync(true);
+                return new BaseResponse { IsSuccess = true, Message = "تم تحديث بيانات المستخدم " };
+
+            }
+            else
+            {
+                return new BaseResponse() { IsSuccess = false, Message = "الرجاء  التحقق من العملية " };
+            }
         }
     }
 }

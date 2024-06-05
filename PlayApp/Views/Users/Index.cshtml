@@ -17,15 +17,14 @@
                     <thead>
                     <th>اسم المستخدم</th>
                     <th>صلاحية المستخدم</th>
-                    <th>صلاحية المستخدم</th>
                     </thead>
                     <tbody>
                         @foreach (var user in Model)
                         {
                             <tr>
-                                <td>@user.name</td>
                                 <td>@user.UserName</td>
                                 <td>@user.Role</td>
+                                <td><a asp-action="Edit" asp-controller="Users" asp-route-id="@user.ID">Edit</a>  </td>
                             </tr>
                         }
                     </tbody>

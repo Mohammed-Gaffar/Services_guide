@@ -19,7 +19,7 @@ namespace PlayApp.Controllers
 
         public IActionResult Index()
         {
-            var Users = _IUser.GetAll();//_db.users.ToList();
+            var Users = _IUser.GetAll();
 
             return View(Users);
         }
@@ -70,6 +70,9 @@ namespace PlayApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Updated_by = Convert.ToInt32(User.Identity.Name);
+                user.Update_At = DateTime.Now;
+
                 BaseResponse res = await _IUser.Update(user);
 
                 if (res.IsSuccess == true) {
