@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Synercoding.FormsAuthentication;
 using System.Security.Claims;
+using Infrastructure.Repositories;
 
 namespace PlayApp.Helpers2
 {
@@ -71,10 +72,10 @@ namespace PlayApp.Helpers2
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(new Claim(ClaimTypes.Name, cookie.UserName));
 
-            //StaticRepository _StaticRepository = new StaticRepository();
-            //var model = _StaticRepository.GetUserRole(cookie.UserName);
-            //if (model != null)
-            //    identity.AddClaim(new Claim(ClaimTypes.Role, model));
+            StaticRepository _StaticRepository = new StaticRepository();
+            var model = _StaticRepository.GetUserRole(cookie.UserName);
+            if (model != null)
+                identity.AddClaim(new Claim(ClaimTypes.Role, model));
 
 
             // Connect to database to get the roles and add them to the identity.

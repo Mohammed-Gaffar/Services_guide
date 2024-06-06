@@ -52,9 +52,13 @@ namespace Infrastructure.Repositories
                 return user;
 
             return null; 
+        }
 
-            
+        public async Task<User> GetByName(string Name)
+        {
+            User user = await _db.users.FirstOrDefaultAsync(m => m.UserName == Name);
 
+            return user; 
         }
 
         public async Task<BaseResponse> Update(User User)
@@ -62,6 +66,9 @@ namespace Infrastructure.Repositories
             var DbUser = await  _db.users.FindAsync(User.ID);
             if (DbUser != null)
             {
+                User.Create_At = DbUser.Create_At;
+                User.Created_by = DbUser.Created_by;
+
                 _db.Entry(DbUser).CurrentValues.SetValues(User);
                 await _db.SaveChangesAsync(true);
                 return new BaseResponse { IsSuccess = true, Message = "تم تحديث بيانات المستخدم " };

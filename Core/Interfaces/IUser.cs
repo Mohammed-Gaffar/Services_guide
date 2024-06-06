@@ -14,5 +14,6 @@ namespace Core.Interfaces
         public Task<BaseResponse> Create(User User);
         public Task<BaseResponse> Update(User User);
         public Task<BaseResponse> DeleteById(int id);
+        public Task<User> GetByName(string Name);
     }
 }

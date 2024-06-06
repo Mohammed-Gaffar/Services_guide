@@ -69,7 +69,7 @@ builder.Services
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUser,UserRepository>();
-
+builder.Services.AddScoped<IServices,ServicesRepository>();
 
 
 

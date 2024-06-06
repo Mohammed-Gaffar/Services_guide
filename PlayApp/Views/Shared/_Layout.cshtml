@@ -68,28 +68,28 @@
                     <div class="offcanvas-body justify-content-end">
                         <ul class="navbar-nav mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Services" asp-action="Index">Home</a>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">الصفحة الرئيسية</a>
                             </li>
+                             @if (User.IsInRole("Admin")||User.IsInRole("super_admin"))
+                                {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index">users</a>
+                                <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index">المستخدمين</a>
                             </li>
+                            <li>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Create">إضافة</a>
+                            </li>
+                            }
                         </ul>
                         <ul class="navbar-nav align-items-center d-none d-lg-flex">
                             <li class="nav-item">|</li>
                         </ul>
                         <partial name="_LoginPartial" />
-@* 
-                        <ul class="navbar-nav">
-                                <a class="nav-link" asp-area="" asp-controller="Services" asp-action="Index">Logout</a>
-                            </li>
-                        </ul> *@
                        
                     </div>
                 </div>
             </div>
         </nav>
     </nav>
-
 
     <main role="main">
         @RenderBody()

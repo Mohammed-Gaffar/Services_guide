@@ -1,55 +1,41 @@
-﻿@{
+﻿@model IEnumerable<Core.Entities.Service>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 
 <div class="row" style="margin:10px;">
+    <h2>الخدمات</h2>
+    <hr />
     <div class="row">
-        <div class="col-sm-3" style="margin:10px">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        @foreach (var service in Model)
+        {
+            <div class="col-md-3" style="margin:10px">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@service.Name</h5>
+                        <hr />
+                        <p class="card-text">@service.Description.</p>
+                        <div style="text-align:end">
+
+                        <a asp-action="@service.Link" class="btn btn-primary">بدأ الخدمة</a>
+                        @if (User.IsInRole("Admin") || User.IsInRole("super_admin"))
+                        {
+                            <a asp-action="Edit" asp-controller="Home" asp-route-id="@service.ID" class="btn btn-secondary" style="min-width:fit-content">تعديل</a>
+
+                            @if (service.IsActive == true)
+                            {
+                                <a asp-action="DeActive" asp-controller="Home" asp-route-id="@service.ID" class="btn btn-danger" style="min-width:fit-content">الغاء التفعيل</a>
+                            }else{
+                                <a asp-action="Active" asp-controller="Home" asp-route-id="@service.ID" class="btn btn-info" style="min-width:fit-content">  تفعيل</a>
+                            }
+                        }
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3" style="margin:10px">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3" style="margin:10px">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3" style="margin:10px">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3" style="margin:10px">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
   
 </div>
