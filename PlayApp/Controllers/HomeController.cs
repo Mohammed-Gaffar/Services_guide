@@ -6,7 +6,7 @@ using PlayApp.Models;
 
 namespace PlayApp.Controllers;
 
-//[Authorize]
+[Authorize]
 public class HomeController : BaseController
 {
     private readonly ILogger<HomeController> _logger;
@@ -18,7 +18,6 @@ public class HomeController : BaseController
 
     public IActionResult Index()
     {
-        BasicNotification("work",NotificationType.Success);
         return View();
     }
 

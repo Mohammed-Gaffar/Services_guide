@@ -59,6 +59,7 @@ namespace PlayApp.Controllers
 
         public async Task<IActionResult> Edit(int Id)
         {
+
             var user  = await _IUser.GetById(Id);
 
             return View(user);
