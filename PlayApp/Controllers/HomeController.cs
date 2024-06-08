@@ -25,7 +25,17 @@ public class HomeController : BaseController
 
     public IActionResult Index()
     {
-        return View(_services.GetAll());
+        IEnumerable<Service> services;
+        if (User.IsInRole("Admin")||User.IsInRole("Super_Admin"))
+        {
+            services = _services.GetAll();
+        }
+        else
+        {
+            services = _services.GetAllUser();
+        }
+
+        return View(services);
     }
 
 

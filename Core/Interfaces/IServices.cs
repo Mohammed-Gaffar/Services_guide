@@ -10,6 +10,7 @@ namespace Core.Interfaces
     public interface IServices
     {
         public IEnumerable<Service> GetAll();
+        public IEnumerable<Service> GetAllUser();
         public Task<Service> GetById(int id);
         public Task<BaseResponse> Create(Service service);
         public Task<BaseResponse> Update(Service service);

@@ -66,6 +66,11 @@ namespace Infrastructure.Repositories
            return _conn.services;
         }
 
+        public IEnumerable<Service> GetAllUser()
+        {
+            return _conn.services.Where(m => m.IsActive == true);
+        }
+
         public async Task<Service> GetById(int id)
         {
             Service service = await _conn.services.FindAsync(id);
