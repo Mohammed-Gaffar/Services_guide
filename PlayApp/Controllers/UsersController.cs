@@ -1,6 +1,7 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Transport.NamedPipes;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Update;
 using PlayApp.Extentions;
 namespace PlayApp.Controllers
 {
+    [Authorize]
     public class UsersController : BaseController
     {
         private readonly DbConn _db;
@@ -20,6 +22,7 @@ namespace PlayApp.Controllers
             _db = dbConn;
         }
 
+        [Authorize(Roles = "Super_admin,Admin")]
         public IActionResult Index()
         {
             var Users = _IUser.GetAll();
@@ -27,11 +30,13 @@ namespace PlayApp.Controllers
             return View(Users);
         }
 
+        [Authorize(Roles ="Super_admin,Admin")]
         public IActionResult create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Super_admin,Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(User user)
         {
@@ -70,7 +75,7 @@ namespace PlayApp.Controllers
             return View(nameof(Index));
         }
 
-
+        [Authorize(Roles = "Super_admin,Admin")]
         public async Task<IActionResult> Edit(int Id)
         {
 
@@ -79,7 +84,7 @@ namespace PlayApp.Controllers
             return View(user);
         }
 
-
+        [Authorize(Roles = "Super_admin,Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(User user)
         {

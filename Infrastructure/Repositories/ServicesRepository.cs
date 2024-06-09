@@ -40,7 +40,7 @@ namespace Infrastructure.Repositories
         public async Task<BaseResponse> Create(Service service)
         {
             await _conn.services.AddAsync(service);
-            _conn.SaveChangesAsync();
+            await _conn.SaveChangesAsync();
             return new BaseResponse { IsSuccess = true };
         }
 
@@ -97,7 +97,7 @@ namespace Infrastructure.Repositories
 
                 _conn.Entry(DbService).CurrentValues.SetValues(service);
                 await _conn.SaveChangesAsync(true);
-                return new BaseResponse { IsSuccess = true, Message = "تم تحديث بيانات المستخدم " };
+                return new BaseResponse { IsSuccess = true, Message = "تم تحديث بيانات الخدمة " };
             }
             else
             {

@@ -11,13 +11,13 @@ namespace Core.Entities
 {
     public class Service :BaseEntity
     {
-        [Required]
+        [Required(ErrorMessage ="الحقل مطلوب")]
         [DisplayName("اسم الخدمة")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("وصف الخدمة")]
         public string Description { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("رابط الخدمة")]
         public string Link { get; set; }
         [DisplayName("حالة الخدمة")]

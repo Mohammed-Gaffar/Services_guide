@@ -8,7 +8,7 @@ using PlayApp.Models;
 
 namespace PlayApp.Controllers;
 
-//[Authorize]
+[Authorize]
 public class HomeController : BaseController
 {
     private readonly ILogger<HomeController> _logger;
@@ -38,12 +38,13 @@ public class HomeController : BaseController
         return View(services);
     }
 
-
+    [Authorize(Roles = "Super_admin,Admin")]
     public IActionResult create()
     {
         return View();
     }
 
+    [Authorize(Roles = "Super_admin,Admin")]
     [HttpPost]
     public async Task<IActionResult> Create(Service service)
     {
@@ -78,11 +79,9 @@ public class HomeController : BaseController
             return View(service);
         }
 
-
-        return View(nameof(Index));
     }
 
-
+    [Authorize(Roles = "Super_admin,Admin")]
     public IActionResult Active(int Id)
     {
         _services.Activate(Id);
@@ -91,13 +90,52 @@ public class HomeController : BaseController
         return RedirectToAction(nameof(Index));
     }
 
-
+    [Authorize(Roles = "Super_admin,Admin")]
     public IActionResult DeActive(int Id)
     {
         _services.DeActivate(Id);
 
         BasicNotification("تم الغاء تفعيل الخدمة ", NotificationType.Warning);
         return RedirectToAction(nameof(Index));
+    }
+
+    [Authorize(Roles = "Super_admin,Admin")]
+    public async Task<IActionResult>  Edit(int Id) {
+        Service service = await _services.GetById(Id);
+        return View(service);
+    }
+
+    [Authorize(Roles = "Super_admin,Admin")]
+    [HttpPost]
+    public async Task<IActionResult> Edit(Service service)
+    {
+        User createduser;
+        if (User.Identity.Name != null)
+        {
+            createduser = await _user.GetByName(User.Identity.Name);
+        }
+        else
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        if (ModelState.IsValid)
+        {
+            service.Update_At = DateTime.Now;
+            service.Updated_by = createduser.ID;
+            BaseResponse res = await _services.Update(service);
+            if (res.IsSuccess == true)
+            {
+                BasicNotification("تم اضافة البيانات بنجاح", NotificationType.Success);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                BasicNotification(res.Message, NotificationType.Error);
+                return RedirectToAction(nameof(create), service);
+            }
+        }
+        return View(service);
     }
 
 

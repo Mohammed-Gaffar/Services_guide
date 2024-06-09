@@ -13,11 +13,11 @@ namespace Core.Entities
 {
     public class User : BaseEntity
     {
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("اسم الستخدم")]
         public string UserName { get; set; }
         [DisplayName("صلاحية المستخدم")]
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public Roles Role { get; set; }
     }
 }

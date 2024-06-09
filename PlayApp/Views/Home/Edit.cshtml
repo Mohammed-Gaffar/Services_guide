@@ -1,0 +1,53 @@
+﻿@model Core.Entities.Service
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div style="justify-content:center;display:flex">
+    <div style="width:80%;margin:5%">
+        <div class="card">
+            <div class="card-header">
+                <center>
+                    <h3>
+                        تديل خدمة
+                    </h3>
+                </center>
+            </div>
+            @using (Html.BeginForm("Edit", "Home", FormMethod.Post))
+            {
+                <div class="card-body">
+                    @Html.LabelFor(m => m.Name, null, new { @class = "label-control" })
+                    @Html.TextBoxFor(m => m.Name, null, new { @class = "form-control", autocomplete = "off", onkeypress = "return /[0-9a-zA-Z-ا-ي- -]/i.test(event.key)" })
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <br />
+                    @Html.LabelFor(m => m.Description, null, new { @class = "label-control" })
+                    @Html.TextBoxFor(m => m.Description, null, new { @class = "form-control", autocomplete = "off", onkeypress = "return /[0-9a-zA-Z-ا-ي- -]/i.test(event.key)" })
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                    <br>
+                    @Html.LabelFor(m => m.Link, null, new { @class = "label-control" })
+                    @Html.TextBoxFor(m => m.Link, null, new { @class = "form-control", autocomplete = "off", onkeypress = "return /[0-9a-zA-Z-ا-ي- -]/i.test(event.key)" })
+                    <span asp-validation-for="Link" class="text-danger"></span>
+                    <br />
+                    <div class="col-md-12" style="display:flex">
+                        <div class="col-md-6">
+                            @Html.LabelFor(m => m.IsActive, new { @class = "form-check-label", @for = "flexSwitchCheckDefault", @style = "font-size:large" })
+                        </div>
+                        <div class="form-check form-switch" style="display:inline flex">
+                            <p><b>نشطة</b></p>
+                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-check-input", @id = "flexSwitchCheckDefault", @checked = "true", @type = "checkbox", @style = "margin-right:10px" })
+                            <p style="padding-right:-10px"><b> غير نشطة </b></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <input type="submit" value="حفظ البيانات" class="btn btn-primary" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
